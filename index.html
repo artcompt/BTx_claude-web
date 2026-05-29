@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VIBE EDU - 시니어 App 36종</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  :root{
+    --orange:#E8640A;--orange-light:#FFF4EE;--orange-dark:#B84D00;
+    --gray-bg:#F7F6F3;--gray-border:#E0DED8;--gray-text:#6B6A65;
+    --text:#1A1A18;--white:#fff;
+    --radius:12px;--radius-sm:8px;
+  }
+  body{font-family:-apple-system,BlinkMacSystemFont,'Noto Sans KR',sans-serif;background:var(--gray-bg);color:var(--text);font-size:15px;line-height:1.6}
+
+  /* NAV */
+  nav{background:var(--white);border-bottom:0.5px solid var(--gray-border);padding:0 32px;display:flex;align-items:center;justify-content:space-between;height:60px;position:sticky;top:0;z-index:100}
+  .logo{display:flex;align-items:center;gap:8px;font-size:18px;font-weight:700;color:var(--text)}
+  .logo-badge{background:var(--orange);color:#fff;font-size:10px;font-weight:700;padding:2px 7px;border-radius:20px;letter-spacing:0.5px}
+  .nav-links{display:flex;gap:24px}
+  .nav-links a{font-size:13px;color:var(--gray-text);text-decoration:none;transition:color .2s}
+  .nav-links a:hover{color:var(--orange)}
+
+  /* HERO */
+  .hero{background:var(--white);padding:64px 32px 56px;text-align:center;border-bottom:0.5px solid var(--gray-border)}
+  .hero-badge{display:inline-block;background:var(--orange-light);color:var(--orange-dark);font-size:12px;font-weight:600;padding:4px 14px;border-radius:20px;margin-bottom:20px;letter-spacing:0.3px}
+  .hero h1{font-size:38px;font-weight:700;line-height:1.25;margin-bottom:16px;color:var(--text)}
+  .hero h1 span{color:var(--orange)}
+  .hero p{font-size:16px;color:var(--gray-text);max-width:560px;margin:0 auto 32px;line-height:1.7}
+  .hero-stats{display:flex;justify-content:center;gap:40px;flex-wrap:wrap}
+  .stat{text-align:center}
+  .stat-num{font-size:28px;font-weight:700;color:var(--orange)}
+  .stat-label{font-size:12px;color:var(--gray-text);margin-top:2px}
+
+  /* SECTION */
+  section{padding:56px 32px}
+  .section-inner{max-width:960px;margin:0 auto}
+  .section-label{font-size:12px;font-weight:600;color:var(--orange);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px}
+  .section-title{font-size:26px;font-weight:700;margin-bottom:8px}
+  .section-sub{font-size:15px;color:var(--gray-text);margin-bottom:36px;max-width:560px}
+
+  /* STRATEGY CARDS */
+  .strategy-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px}
+  .strategy-card{background:var(--white);border:0.5px solid var(--gray-border);border-radius:var(--radius);padding:24px}
+  .strategy-card .card-num{font-size:11px;font-weight:700;color:var(--orange);letter-spacing:0.5px;margin-bottom:10px}
+  .strategy-card h3{font-size:16px;font-weight:600;margin-bottom:12px;line-height:1.3}
+  .strategy-card ul{padding-left:0;list-style:none;display:flex;flex-direction:column;gap:7px}
+  .strategy-card ul li{font-size:13px;color:var(--gray-text);padding-left:14px;position:relative;line-height:1.5}
+  .strategy-card ul li::before{content:'·';position:absolute;left:0;color:var(--orange);font-weight:700}
+  .strategy-card.featured{border-color:var(--orange);border-width:1.5px}
+
+  /* CATEGORY TABS */
+  .tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:28px}
+  .tab{background:var(--white);border:0.5px solid var(--gray-border);border-radius:20px;padding:6px 16px;font-size:13px;cursor:pointer;color:var(--gray-text);transition:all .18s}
+  .tab:hover,.tab.active{background:var(--orange);color:#fff;border-color:var(--orange)}
+
+  /* APP CARDS */
+  .apps-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px}
+  .app-card{background:var(--white);border:0.5px solid var(--gray-border);border-radius:var(--radius);padding:18px 16px;transition:border-color .2s}
+  .app-card:hover{border-color:var(--orange)}
+  .app-card-top{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+  .app-icon{width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+  .app-badge{font-size:10px;font-weight:700;color:var(--orange);background:var(--orange-light);padding:2px 7px;border-radius:10px;white-space:nowrap}
+  .app-name{font-size:13px;font-weight:600;line-height:1.35;margin-bottom:4px}
+  .app-desc{font-size:11px;color:var(--gray-text);line-height:1.4}
+
+  /* CATEGORY SECTION */
+  .cat-header{display:flex;align-items:baseline;gap:10px;margin-bottom:16px;margin-top:8px}
+  .cat-title{font-size:17px;font-weight:600}
+  .cat-count{font-size:12px;color:var(--gray-text)}
+  .cat-sub{font-size:13px;color:var(--gray-text);margin-bottom:16px}
+
+  /* MEGA CATEGORIES */
+  .mega-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:14px}
+  .mega-card{background:var(--white);border:0.5px solid var(--gray-border);border-radius:var(--radius);padding:20px 16px;text-align:center}
+  .mega-icon{font-size:28px;margin-bottom:10px}
+  .mega-name{font-size:13px;font-weight:600;margin-bottom:6px}
+  .mega-tags{display:flex;flex-wrap:wrap;gap:4px;justify-content:center}
+  .mega-tag{font-size:10px;background:var(--gray-bg);color:var(--gray-text);padding:2px 7px;border-radius:10px}
+
+  /* FOOTER */
+  footer{background:var(--text);color:#aaa;padding:40px 32px;text-align:center;font-size:13px}
+  footer .footer-logo{font-size:20px;font-weight:700;color:#fff;margin-bottom:8px}
+  footer p{line-height:1.7}
+
+  .hidden{display:none}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">
+    VIBE EDU <span class="logo-badge">AI for ALL</span>
+  </div>
+  <div class="nav-links">
+    <a href="#strategy">전략</a>
+    <a href="#apps">앱 목록</a>
+    <a href="#platform">플랫폼</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-badge">시니어 디지털 인지케어 플랫폼</div>
+  <h1>뇌를 깨우는 <span>타이핑X</span><br>시니어 App 36종</h1>
+  <p>인지훈련부터 건강관리, 명상까지 — 시니어의 삶 전반을 아우르는 통합 디지털 케어 솔루션</p>
+  <div class="hero-stats">
+    <div class="stat"><div class="stat-num">36종</div><div class="stat-label">전용 앱</div></div>
+    <div class="stat"><div class="stat-num">8개</div><div class="stat-label">케어 영역</div></div>
+    <div class="stat"><div class="stat-num">B2B</div><div class="stat-label">SaaS 확장</div></div>
+    <div class="stat"><div class="stat-num">DTx</div><div class="stat-label">디지털 치료제</div></div>
+  </div>
+</div>
+
+<!-- STRATEGY -->
+<section id="strategy" style="background:var(--white);border-bottom:0.5px solid var(--gray-border)">
+  <div class="section-inner">
+    <div class="section-label">비즈니스 전략</div>
+    <div class="section-title">3가지 핵심 성장 방향</div>
+    <div class="section-sub">단순 앱 모음을 넘어 데이터 기반 시니어 헬스케어 플랫폼으로 확장합니다</div>
+    <div class="strategy-grid">
+      <div class="strategy-card featured">
+        <div class="card-num">전략 01</div>
+        <h3>통합 브랜드 기반의<br>'All-in-One' 플랫폼 구축</h3>
+        <ul>
+          <li>13개 앱을 '타이핑X' 단일 인터페이스로 통합</li>
+          <li>집중력·기억력·반응력 영역별 인지 건강 로드맵</li>
+          <li>시니어 맞춤 UX/UI + 게이미피케이션 보상체계</li>
+          <li>독보적 '디지털 인지 케어 서비스' 브랜드 확립</li>
+        </ul>
+      </div>
+      <div class="strategy-card">
+        <div class="card-num">전략 02</div>
+        <h3>B2B·B2G 확장을 위한<br>데이터 관리 솔루션(SaaS) 고도화</h3>
+        <ul>
+          <li>인지 상태 변화를 수치화한 정기 인지 건강 보고서</li>
+          <li>요양시설·치매안심센터용 관리자 대시보드 공급</li>
+          <li>구독 모델(B2B SaaS)로 전환 및 공공기관 파트너십</li>
+        </ul>
+      </div>
+      <div class="strategy-card">
+        <div class="card-num">전략 03</div>
+        <h3>시니어 데이터 기반의<br>헬스케어 비즈니스 확장</h3>
+        <ul>
+          <li>보험·의료·제약 산업과의 협업 모델 구축</li>
+          <li>인지저하 조기발견 '디지털 스크리닝' 기능 강화</li>
+          <li>개인별 맞춤 건강 관리 및 실버 커머스 연결</li>
+          <li>시니어 라이프케어 '데이터 플랫폼'으로 성장</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- APPS -->
+<section id="apps">
+  <div class="section-inner">
+    <div class="section-label">앱 카탈로그</div>
+    <div class="section-title">36종 앱 전체 목록</div>
+    <div class="section-sub">카테고리별로 탐색하세요</div>
+
+    <div class="tabs" id="tabs">
+      <div class="tab active" data-cat="all">전체 보기</div>
+      <div class="tab" data-cat="cognitive">🧩 인지훈련</div>
+      <div class="tab" data-cat="memory">🧠 기억력 향상</div>
+      <div class="tab" data-cat="brain">🎮 두뇌운동</div>
+      <div class="tab" data-cat="language">📖 언어·문해력</div>
+      <div class="tab" data-cat="digital">📱 디지털 생활지원</div>
+      <div class="tab" data-cat="health">❤️ 건강관리</div>
+      <div class="tab" data-cat="motor">🎯 운동신경 훈련</div>
+      <div class="tab" data-cat="mind">🌿 마음챙김</div>
+    </div>
+
+    <div id="apps-container"></div>
+  </div>
+</section>
+
+<!-- PLATFORM -->
+<section id="platform" style="background:var(--white);border-top:0.5px solid var(--gray-border)">
+  <div class="section-inner">
+    <div class="section-label">플랫폼 구조</div>
+    <div class="section-title">5개 메가 카테고리</div>
+    <div class="section-sub">현재 구조는 디지털 치료제(DTx)와 AI 브레인케어(BTx)를 아우르는 확장 가능한 플랫폼입니다</div>
+    <div class="mega-grid">
+      <div class="mega-card">
+        <div class="mega-icon">🧩</div>
+        <div class="mega-name">Cognitive Care</div>
+        <div class="mega-tags"><span class="mega-tag">인지훈련</span><span class="mega-tag">기억력</span><span class="mega-tag">두뇌운동</span></div>
+      </div>
+      <div class="mega-card">
+        <div class="mega-icon">💚</div>
+        <div class="mega-name">Digital Wellness</div>
+        <div class="mega-tags"><span class="mega-tag">건강관리</span><span class="mega-tag">걷기</span><span class="mega-tag">생활지원</span></div>
+      </div>
+      <div class="mega-card">
+        <div class="mega-icon">🌿</div>
+        <div class="mega-name">Mindfulness Care</div>
+        <div class="mega-tags"><span class="mega-tag">명상</span><span class="mega-tag">정서 안정</span><span class="mega-tag">수면</span></div>
+      </div>
+      <div class="mega-card">
+        <div class="mega-icon">🎨</div>
+        <div class="mega-name">Creative Brain Therapy</div>
+        <div class="mega-tags"><span class="mega-tag">그림</span><span class="mega-tag">음악</span><span class="mega-tag">글쓰기</span></div>
+      </div>
+      <div class="mega-card">
+        <div class="mega-icon">🤖</div>
+        <div class="mega-name">AI Senior Platform</div>
+        <div class="mega-tags"><span class="mega-tag">데이터</span><span class="mega-tag">AI</span><span class="mega-tag">기관관리</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo">VIBE EDU</div>
+  <p>AI for ALL · 바이브에듀<br>Copyright © by VIBE EDU All rights reserved.</p>
+</footer>
+
+<script>
+const cats = {
+  cognitive:{label:'인지훈련',sub:'집중력·판단력·반응속도·문제해결 능력 향상',color:'#EDE9FB',icon:'🧩'},
+  memory:{label:'기억력 향상',sub:'단기기억·작업기억·회상훈련 중심',color:'#E6F0FB',icon:'🧠'},
+  brain:{label:'두뇌운동',sub:'게임형 브레인 피트니스',color:'#FFF0E6',icon:'🎮'},
+  language:{label:'언어·문해력',sub:'언어능력·문장력·디지털 문해력 강화',color:'#E6F7EE',icon:'📖'},
+  digital:{label:'디지털 생활지원',sub:'시니어 디지털 적응 및 생활 편의',color:'#FBF0E6',icon:'📱'},
+  health:{label:'건강관리',sub:'건강 데이터·생활습관 관리',color:'#FBE6E6',icon:'❤️'},
+  motor:{label:'운동신경 자극 훈련',sub:'운동 신경 자극',color:'#E6F7FB',icon:'🎯'},
+  mind:{label:'마음챙김',sub:'정서 안정·심리 치유·스트레스 완화',color:'#EEFBE6',icon:'🌿'},
+};
+
+const apps = [
+  {id:'BTx01',name:'9988 Memory',cat:'memory',desc:'기억 저장·회상 훈련'},
+  {id:'BTx02',name:'9988 지남력 트레이닝',cat:'memory',desc:'날짜·시간·장소 기억 훈련'},
+  {id:'BTx03',name:'순간 기억훈련',cat:'memory',desc:'단기 기억력 집중 훈련'},
+  {id:'BTx04',name:'9988 도형 매칭 두뇌트레이닝',cat:'cognitive',desc:'도형 인식·패턴 분석'},
+  {id:'BTx05',name:'시니어 언어학교',cat:'language',desc:'5개국어 외국어 학습'},
+  {id:'BTx06',name:'단어 찾기 놀이',cat:'language',desc:'어휘 훈련·두뇌 자극'},
+  {id:'DTx07',name:'9988 브레인 운동 시계 보기',cat:'brain',desc:'시간 인지 훈련'},
+  {id:'DTx08',name:'시니어 메모비서',cat:'digital',desc:'일정·메모 관리'},
+  {id:'DTx09',name:'시니어 건강비서',cat:'health',desc:'건강 모니터링 AI 비서'},
+  {id:'DTx10',name:'9988 혈당관리',cat:'health',desc:'혈당 기록·스마트 관리'},
+  {id:'DTx11',name:'9988 인지기능 자가진단',cat:'cognitive',desc:'디지털 인지 스크리닝'},
+  {id:'DTx12',name:'어르신 음성 메모비서',cat:'digital',desc:'음성으로 메모 기록'},
+  {id:'BTx13',name:'가위바위보 뇌훈련 앱',cat:'brain',desc:'즉각 반응 훈련'},
+  {id:'DTx14',name:'9988 글자 색상 맞히기',cat:'brain',desc:'전환 주의력 훈련'},
+  {id:'DTx15',name:'9988 도넛 모양 기억',cat:'memory',desc:'시각적 기억력 훈련'},
+  {id:'BTx16',name:'9988 인지훈련 숫자 운동',cat:'cognitive',desc:'숫자 인지·집중력'},
+  {id:'BTx17',name:'9988 인지훈련 공 던지기',cat:'cognitive',desc:'반응속도·운동인지'},
+  {id:'BTx18',name:'시니어 자서전 에디터',cat:'digital',desc:'생애 기록·추억 정리'},
+  {id:'BTx19',name:'시니어 옻놀이 두뇌트레이닝',cat:'cognitive',desc:'전략적 사고 훈련'},
+  {id:'BTx20',name:'미로찾기',cat:'cognitive',desc:'사고력·판단력 향상'},
+  {id:'BTx21',name:'직소퍼즐 브레인 트레이닝',cat:'cognitive',desc:'공간지각·퍼즐'},
+  {id:'BTx22',name:'테트리스 (뇌 트레이닝)',cat:'brain',desc:'순발력·집중력 강화'},
+  {id:'BTx23',name:'한글 블록 매칭 놀이',cat:'language',desc:'언어 매칭 인지훈련'},
+  {id:'BTx24',name:'끝말잇기 두뇌훈련',cat:'language',desc:'언어 회상 훈련'},
+  {id:'BTx25',name:'땅밟이 놀이',cat:'cognitive',desc:'사고력·판단력'},
+  {id:'BTx26',name:'주사위 놀이',cat:'cognitive',desc:'계산·확률 사고'},
+  {id:'BTx27',name:'흑백 왕국 대전쟁',cat:'cognitive',desc:'집중력·전략 게임'},
+  {id:'BTx28',name:'음계 맞추기',cat:'memory',desc:'청각 음계 기억 훈련'},
+  {id:'BTx29',name:'포켓볼',cat:'motor',desc:'집중력·조준 훈련'},
+  {id:'BTx30',name:'AI와 테니스',cat:'motor',desc:'AI 대전 집중력 훈련'},
+  {id:'BTx31',name:'양궁 쇼다운',cat:'motor',desc:'정밀 조준·집중력'},
+  {id:'BTx32',name:'매일 1만 걸음 걷기',cat:'health',desc:'운동 관리·걷기 목표'},
+  {id:'BTx33',name:'약도 그리기',cat:'memory',desc:'기억력 강화 훈련'},
+  {id:'BTx34',name:'마음챙김 명상 01',cat:'mind',desc:'호흡 명상·마음 안정'},
+  {id:'BTx35',name:'명상 02',cat:'mind',desc:'정서 안정·심리 치유'},
+  {id:'BTx36',name:'명상 03',cat:'mind',desc:'수면·휴식·스트레스 완화'},
+  {id:'BTx37',name:'유튜브 플레이어',cat:'digital',desc:'시니어 친화 영상 플레이어'},
+];
+
+function renderApps(filterCat){
+  const container = document.getElementById('apps-container');
+  container.innerHTML = '';
+  if(filterCat === 'all'){
+    Object.entries(cats).forEach(([catKey, catInfo])=>{
+      const catApps = apps.filter(a=>a.cat===catKey);
+      if(!catApps.length) return;
+      const sec = document.createElement('div');
+      sec.style.marginBottom='32px';
+      sec.innerHTML = `<div class="cat-header"><span class="cat-title">${catInfo.icon} ${catInfo.label}</span><span class="cat-count">${catApps.length}종</span></div><div class="cat-sub">${catInfo.sub}</div>`;
+      const grid = document.createElement('div');
+      grid.className='apps-grid';
+      catApps.forEach(app=>{
+        grid.innerHTML += `<div class="app-card">
+          <div class="app-card-top">
+            <div class="app-icon" style="background:${catInfo.color}">${catInfo.icon}</div>
+            <span class="app-badge">${app.id}</span>
+          </div>
+          <div class="app-name">${app.name}</div>
+          <div class="app-desc">${app.desc}</div>
+        </div>`;
+      });
+      sec.appendChild(grid);
+      container.appendChild(sec);
+    });
+  } else {
+    const catInfo = cats[filterCat];
+    const catApps = apps.filter(a=>a.cat===filterCat);
+    const sec = document.createElement('div');
+    sec.innerHTML = `<div class="cat-header"><span class="cat-title">${catInfo.icon} ${catInfo.label}</span><span class="cat-count">${catApps.length}종</span></div><div class="cat-sub">${catInfo.sub}</div>`;
+    const grid = document.createElement('div');
+    grid.className='apps-grid';
+    catApps.forEach(app=>{
+      grid.innerHTML += `<div class="app-card">
+        <div class="app-card-top">
+          <div class="app-icon" style="background:${catInfo.color}">${catInfo.icon}</div>
+          <span class="app-badge">${app.id}</span>
+        </div>
+        <div class="app-name">${app.name}</div>
+        <div class="app-desc">${app.desc}</div>
+      </div>`;
+    });
+    sec.appendChild(grid);
+    container.appendChild(sec);
+  }
+}
+
+document.getElementById('tabs').addEventListener('click',e=>{
+  const tab = e.target.closest('.tab');
+  if(!tab) return;
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  tab.classList.add('active');
+  renderApps(tab.dataset.cat);
+});
+
+renderApps('all');
+</script>
+</body>
+</html>
